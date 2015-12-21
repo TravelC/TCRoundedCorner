@@ -10,10 +10,10 @@
 		ED19C93C1C27D94400498C02 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19C93B1C27D94400498C02 /* main.m */; };
 		ED19C93F1C27D94400498C02 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19C93E1C27D94400498C02 /* AppDelegate.m */; };
 		ED19C9421C27D94400498C02 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19C9411C27D94400498C02 /* FirstViewController.m */; };
-		ED19C9451C27D94400498C02 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19C9441C27D94400498C02 /* SecondViewController.m */; };
 		ED19C9481C27D94400498C02 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED19C9461C27D94400498C02 /* Main.storyboard */; };
 		ED19C94A1C27D94400498C02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED19C9491C27D94400498C02 /* Assets.xcassets */; };
 		ED19C94D1C27D94400498C02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED19C94B1C27D94400498C02 /* LaunchScreen.storyboard */; };
+		ED19C95A1C27D9DD00498C02 /* UIView+TCRoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19C9591C27D9DD00498C02 /* UIView+TCRoundedCorner.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,12 +23,12 @@
 		ED19C93E1C27D94400498C02 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		ED19C9401C27D94400498C02 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		ED19C9411C27D94400498C02 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		ED19C9431C27D94400498C02 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		ED19C9441C27D94400498C02 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		ED19C9471C27D94400498C02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ED19C9491C27D94400498C02 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ED19C94C1C27D94400498C02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED19C94E1C27D94400498C02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ED19C9581C27D9DD00498C02 /* UIView+TCRoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TCRoundedCorner.h"; sourceTree = "<group>"; };
+		ED19C9591C27D9DD00498C02 /* UIView+TCRoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TCRoundedCorner.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,12 +61,11 @@
 		ED19C9391C27D94400498C02 /* TCRoundedCornerExample */ = {
 			isa = PBXGroup;
 			children = (
+				ED19C9541C27D99500498C02 /* TCRoundedCorner */,
 				ED19C93D1C27D94400498C02 /* AppDelegate.h */,
 				ED19C93E1C27D94400498C02 /* AppDelegate.m */,
 				ED19C9401C27D94400498C02 /* FirstViewController.h */,
 				ED19C9411C27D94400498C02 /* FirstViewController.m */,
-				ED19C9431C27D94400498C02 /* SecondViewController.h */,
-				ED19C9441C27D94400498C02 /* SecondViewController.m */,
 				ED19C9461C27D94400498C02 /* Main.storyboard */,
 				ED19C9491C27D94400498C02 /* Assets.xcassets */,
 				ED19C94B1C27D94400498C02 /* LaunchScreen.storyboard */,
@@ -82,6 +81,15 @@
 				ED19C93B1C27D94400498C02 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ED19C9541C27D99500498C02 /* TCRoundedCorner */ = {
+			isa = PBXGroup;
+			children = (
+				ED19C9581C27D9DD00498C02 /* UIView+TCRoundedCorner.h */,
+				ED19C9591C27D9DD00498C02 /* UIView+TCRoundedCorner.m */,
+			);
+			path = TCRoundedCorner;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,9 +162,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED19C9451C27D94400498C02 /* SecondViewController.m in Sources */,
 				ED19C93F1C27D94400498C02 /* AppDelegate.m in Sources */,
 				ED19C9421C27D94400498C02 /* FirstViewController.m in Sources */,
+				ED19C95A1C27D9DD00498C02 /* UIView+TCRoundedCorner.m in Sources */,
 				ED19C93C1C27D94400498C02 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,6 +314,7 @@
 				ED19C9531C27D94400498C02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
