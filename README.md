@@ -8,7 +8,7 @@ Installation
 
 #### Cocoapod Method:-
 
-`pod 'TCTitleLoading', '~> 1.0.0'`
+`pod 'TCRoundedCorner', '~> 1.0.0'`
 
 #### Source Code Method:-
 Add files in folder TCRoundedCorner to your project.
