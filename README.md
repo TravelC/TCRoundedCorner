@@ -5,8 +5,8 @@ This is a category of UIView which provided the ability of add specified corner(
 
 Change Log
 ==========================
-#### 0.0.4
-1. Support device rotation.
+#### 1.0.1
+1. Fix wrong frame when set border in viewDidLoad.
 
 Installation
 ==========================
