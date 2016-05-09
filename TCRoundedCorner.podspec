@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "TCRoundedCorner"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "This is a category of UIView which provided the ability of add specified corner(s) to a view with a optional border."
 
   s.description  = <<-DESC
