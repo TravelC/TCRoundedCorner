@@ -9,10 +9,14 @@
 #import "UIView+TCRoundedCorner.h"
 #import <objc/runtime.h>
 
-static NSString * const kTCBorderLayerKey = @"kTCBorderLayerKey";
+static NSString *const kTCBorderLayerKey = @"kTCBorderLayerKey";
+static NSString *const kTCCornerTypeKey = @"kTCCornerTypeKey";
+static NSString *const kTCRadiusKey = @"kTCRadiusKey";
 
 @interface UIView ()
 @property (nonatomic, strong) CAShapeLayer *tcBorderLayer;
+@property (nonatomic, strong) NSNumber *tcCornerType;
+@property (nonatomic, strong) NSNumber *tcRadius;
 @end
 
 @implementation UIView (TCRoundedCorner)
@@ -24,7 +28,27 @@ static NSString * const kTCBorderLayerKey = @"kTCBorderLayerKey";
 - (CAShapeLayer *)tcBorderLayer {
     return objc_getAssociatedObject(self, &kTCBorderLayerKey);
 }
--(CAShapeLayer *)shapeLayerWithCornerType:(TCRoundedCornerType)cornerType radius:(CGFloat)radius{
+
+- (void)setTcCornerType:(NSNumber *)tcCornerType {
+    objc_setAssociatedObject(self, &kTCCornerTypeKey, tcCornerType, OBJC_ASSOCIATION_RETAIN);
+}
+
+- (CAShapeLayer *)tcCornerType {
+    return objc_getAssociatedObject(self, &kTCCornerTypeKey);
+}
+
+- (void)setTcRadius:(NSNumber *)tcRadius {
+    objc_setAssociatedObject(self, &kTCRadiusKey, tcRadius, OBJC_ASSOCIATION_RETAIN);
+}
+
+- (CAShapeLayer *)tcRadius {
+    return objc_getAssociatedObject(self, &kTCRadiusKey);
+}
+
+- (CAShapeLayer *)shapeLayerWithCornerType:(TCRoundedCornerType)cornerType radius:(CGFloat)radius {
+    self.tcCornerType = @(cornerType);
+    self.tcRadius = @(radius);
+
     CAShapeLayer *cornerLayer = [CAShapeLayer layer];
 
     CGRect bounds = self.bounds;
@@ -101,34 +125,34 @@ static NSString * const kTCBorderLayerKey = @"kTCBorderLayerKey";
     return cornerLayer;
 }
 
--(void)roundedCorner:(TCRoundedCornerType)cornerType radius:(CGFloat)radius{
+- (void)roundedCorner:(TCRoundedCornerType)cornerType radius:(CGFloat)radius {
     CAShapeLayer *maskLayer = [self shapeLayerWithCornerType:cornerType radius:radius];
     self.layer.mask = maskLayer;
 }
 
--(void)roundedCorner:(TCRoundedCornerType)cornerType
-              radius:(CGFloat)radius
-         borderColor:(UIColor *)borderColor
-         borderWidth:(CGFloat)borderWidth{
+- (void)roundedCorner:(TCRoundedCornerType)cornerType
+               radius:(CGFloat)radius
+          borderColor:(UIColor *)borderColor
+          borderWidth:(CGFloat)borderWidth {
     [self roundedCorner:cornerType radius:radius];
     if (self.tcBorderLayer) {
         [self.tcBorderLayer removeFromSuperlayer];
         self.tcBorderLayer = nil;
     }
-    self.tcBorderLayer =  [self shapeLayerWithCornerType:cornerType radius:radius];
+    self.tcBorderLayer = [self shapeLayerWithCornerType:cornerType radius:radius];
     self.tcBorderLayer.lineWidth = borderWidth;
     self.tcBorderLayer.strokeColor = borderColor.CGColor;
     self.tcBorderLayer.fillColor = [UIColor clearColor].CGColor;
     [self.layer addSublayer:self.tcBorderLayer];
 }
 
--(void)addBorderWithColor:(UIColor *)borderColor
-              borderWidth:(CGFloat)borderWidth{
+- (void)addBorderWithColor:(UIColor *)borderColor
+               borderWidth:(CGFloat)borderWidth {
     self.layer.borderWidth = borderWidth;
     self.layer.borderColor = borderColor.CGColor;
 }
 
--(void)removeBorder{
+- (void)removeBorder {
     if (self.tcBorderLayer) {
         [self.tcBorderLayer removeFromSuperlayer];
     }
@@ -136,4 +160,11 @@ static NSString * const kTCBorderLayerKey = @"kTCBorderLayerKey";
         self.layer.borderWidth = 0.0;
     }
 }
+
+- (void)layoutSubviews {
+    if (self.tcBorderLayer) {
+        [self roundedCorner:[self.tcCornerType integerValue] radius:[self.tcRadius floatValue] borderColor:[UIColor colorWithCGColor:self.tcBorderLayer.strokeColor] borderWidth:self.tcBorderLayer.lineWidth];
+    }
+}
+
 @end

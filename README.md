@@ -3,6 +3,11 @@ This is a category of UIView which provided the ability of add specified corner(
 
 ![](https://github.com/TravelC/TCRoundedCorner/blob/master/demoOfTCRoundedCorner.gif)
 
+Change Log
+==========================
+#### 0.0.4
+1. Support device rotation.
+
 Installation
 ==========================
 
@@ -50,3 +55,4 @@ If you wish to contact me, email at: chuchuanming@gmail.com
 Blog
 ---
 [http://travelchu.com](http://travelchu.com)
+
