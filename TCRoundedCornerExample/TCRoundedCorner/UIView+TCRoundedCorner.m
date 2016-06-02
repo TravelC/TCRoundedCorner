@@ -161,7 +161,7 @@ static NSString *const kTCRadiusKey = @"kTCRadiusKey";
     }
 }
 
-- (void)layoutSubviews {
+- (void)didMoveToSuperview {
     if (self.tcBorderLayer) {
         [self roundedCorner:[self.tcCornerType integerValue] radius:[self.tcRadius floatValue] borderColor:[UIColor colorWithCGColor:self.tcBorderLayer.strokeColor] borderWidth:self.tcBorderLayer.lineWidth];
     }
