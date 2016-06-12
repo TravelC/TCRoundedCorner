@@ -12,14 +12,29 @@
 static NSString *const kTCBorderLayerKey = @"kTCBorderLayerKey";
 static NSString *const kTCCornerTypeKey = @"kTCCornerTypeKey";
 static NSString *const kTCRadiusKey = @"kTCRadiusKey";
+static NSString *const kTCObserverCountKey = @"kTCObserverCountKey";
 
 @interface UIView ()
 @property (nonatomic, strong) CAShapeLayer *tcBorderLayer;
 @property (nonatomic, strong) NSNumber *tcCornerType;
 @property (nonatomic, strong) NSNumber *tcRadius;
+@property (nonatomic, strong) NSNumber *tcObserverCount;
 @end
 
 @implementation UIView (TCRoundedCorner)
+
+- (void)dealloc {
+    if (self.tcObserverCount && self.tcObserverCount.integerValue > 0) {
+        [self removeObserver:self forKeyPath:@"frame"];
+        self.tcObserverCount = @(self.tcObserverCount.integerValue-1);
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"frame"]) {
+        [self roundedCorner:[self.tcCornerType integerValue] radius:[self.tcRadius floatValue] borderColor:[UIColor colorWithCGColor:self.tcBorderLayer.strokeColor] borderWidth:self.tcBorderLayer.lineWidth];
+    }
+}
 
 - (void)setTcBorderLayer:(CAShapeLayer *)tcBorderLayer {
     objc_setAssociatedObject(self, &kTCBorderLayerKey, tcBorderLayer, OBJC_ASSOCIATION_RETAIN);
@@ -27,6 +42,14 @@ static NSString *const kTCRadiusKey = @"kTCRadiusKey";
 
 - (CAShapeLayer *)tcBorderLayer {
     return objc_getAssociatedObject(self, &kTCBorderLayerKey);
+}
+
+- (void)setTcObserverCount:(NSNumber *)tcObserverCount {
+    objc_setAssociatedObject(self, &kTCObserverCountKey, tcObserverCount, OBJC_ASSOCIATION_RETAIN);
+}
+
+- (CAShapeLayer *)tcObserverCount {
+    return objc_getAssociatedObject(self, &kTCObserverCountKey);
 }
 
 - (void)setTcCornerType:(NSNumber *)tcCornerType {
@@ -46,6 +69,15 @@ static NSString *const kTCRadiusKey = @"kTCRadiusKey";
 }
 
 - (CAShapeLayer *)shapeLayerWithCornerType:(TCRoundedCornerType)cornerType radius:(CGFloat)radius {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (self.tcObserverCount) {
+            self.tcObserverCount = @(self.tcObserverCount.integerValue+1);
+        } else {
+            self.tcObserverCount = @(1);
+        }
+        [self addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
+    });
     self.tcCornerType = @(cornerType);
     self.tcRadius = @(radius);
 
@@ -158,12 +190,6 @@ static NSString *const kTCRadiusKey = @"kTCRadiusKey";
     }
     if (self.layer.borderWidth > 0.0) {
         self.layer.borderWidth = 0.0;
-    }
-}
-
-- (void)didMoveToSuperview {
-    if (self.tcBorderLayer) {
-        [self roundedCorner:[self.tcCornerType integerValue] radius:[self.tcRadius floatValue] borderColor:[UIColor colorWithCGColor:self.tcBorderLayer.strokeColor] borderWidth:self.tcBorderLayer.lineWidth];
     }
 }
 
