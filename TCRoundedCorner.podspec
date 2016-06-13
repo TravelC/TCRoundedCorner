@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "TCRoundedCorner"
-  s.version      = "1.0.3"
+  s.version      = "1.0.6"
   s.summary      = "This is a category of UIView which provided the ability of add specified corner(s) to a view with a optional border."
 
   s.description  = <<-DESC
@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, "7.0"
 
-  s.source       = { :git => "https://github.com/TravelC/TCRoundedCorner.git", :tag => "1.0.3" }
+  s.source       = { :git => "https://github.com/TravelC/TCRoundedCorner.git", :tag => "1.0.6" }
 
   s.source_files  = "TCRoundedCornerExample/TCRoundedCorner/**/*.{h,m}"
   s.public_header_files = "TCRoundedCornerExample/TCRoundedCorner/**/*.h"
@@ -31,5 +31,7 @@ Pod::Spec.new do |s|
 
 
    s.requires_arc = true
+
+   s.dependency 'AspectsV1.4.2', '~> 1.4.2'
 
 end
